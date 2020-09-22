@@ -90,4 +90,13 @@ System.out.println(subControle instanceof SubControle);
 <li>invocar o método</li>
 </ul>
 </li>
+<li>
+Por padrão, para efetuar otimizações, o Java muda os nomes dos parâmetros para valores aleatórios como arg0 e arg1.
+</li>
+<li>
+A partir do JDK 8, é possível através da API de Reflection obter os nomes originais dos parâmetros de métodos desde que façamos as configurações necessárias - a config necessária é: na opção de properties do projeto, em 'java compiler', habilitar p 'store information about method parameters (used for reflection)' .
+</li>
+<li>Como obter a exceção original lançada ao executar um método ou construtor.::
+A API de Reflection irá lançar uma instância de InvocationTargetException que encapsulará a exceção original ocorrida dentro do método em questão. -  Inclusive, por não lançar essa exceção, o newInstance() da classe Class<T> acabou sendo descontinuado e marcado como deprecated a partir do JDK 9
+</li> 
 </ol>
