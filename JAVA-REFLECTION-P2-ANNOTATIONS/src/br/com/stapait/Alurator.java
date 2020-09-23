@@ -6,9 +6,11 @@ import java.util.Map;
 public class Alurator {
 	
 	private String pacoteBase;
+	private ContainerIoC containerIoC;
 
 	public Alurator(String pacoteBase) {
 		this.pacoteBase = pacoteBase;
+		this.containerIoC = new ContainerIoC();
 	}
 	
 	public Object executa(String url) {
@@ -28,15 +30,27 @@ public class Alurator {
 		 * Object instanciaControle = new Reflexao()
 		 * .refletClasse(pacoteBase+nomeControle) .getContrutorPadrão() .invoca();
 		 */
-			
-		Object retorno = new Reflexao().refletClasse(pacoteBase+nomeControle)
+		
+		
+		Class<?> classeControle = new Reflexao().getClasse(pacoteBase+nomeControle);
+		Object instanciaControle = containerIoC.getInstancia(classeControle);
+		
+		Object retorno = new ManipuladorObjeto(instanciaControle) 
+				.getMetodo(nomeMetodo, params)
+		.comTratamentoDeExcecao((metodo, e) -> {
+            System.out.println("Erro no método " + metodo.getName() + " da classe " + metodo.getDeclaringClass().getName() + ".\n\n");
+            throw new RuntimeException("ERRO!");
+        })
+		.invoca();
+		//antes da entrada do IoC
+		/*Object retorno = new Reflexao().refletClasse(pacoteBase+nomeControle)
 				.criaInstancia()							
 				.getMetodo(nomeMetodo, params)
 				.comTratamentoDeExcecao((metodo, e) -> {
                     System.out.println("Erro no método " + metodo.getName() + " da classe " + metodo.getDeclaringClass().getName() + ".\n\n");
                     throw new RuntimeException("ERRO!");
                 })
-				.invoca();
+				.invoca();*/
 				
 			/*
 			 * Class<?> classeControle = Class.forName(pacoteBase + nomeControle); Object
@@ -54,5 +68,10 @@ public class Alurator {
 		 * RuntimeException("Erro no construtor! exception original: " ,
 		 * e.getTargetException()); }
 		 */
+	}
+
+	public void registra(Class<?> tipoFonte, Class<?> tipoDestino) {
+		containerIoC.registra(tipoFonte, tipoDestino);
+		
 	}
 }

@@ -1,11 +1,16 @@
 package br.com.stapait;
 
+import br.com.stapait.anotacao.AnotacaoTeste;
 import br.com.stapait.anotacao.NomeTagXml;
 
-@NomeTagXml(valor="produto", novoValor="teste")
-public class Produto extends SuperProduto{	
+@AnotacaoTeste(valor="produto", novoValor="teste")
+@NomeTagXml("product")
+public class Produto extends SuperProduto{
+	@NomeTagXml("name")
 	private String nome;
+	@NomeTagXml("value")
 	private double valor;
+	@NomeTagXml("brand")
 	private String marca;
 	public Produto(String nome, double valor, String marca) {
 		this.nome = nome;

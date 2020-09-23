@@ -22,6 +22,7 @@ public class Main {
 			String url = s.nextLine();
 			
 			Alurator alurator = new Alurator("br.com.stapait.");
+			alurator.registra(ProdutoDao.class, ProdutoDaoMock.class)
 			while (!url.equals("exit")) {
 				Object response = alurator.executa(url);
 				

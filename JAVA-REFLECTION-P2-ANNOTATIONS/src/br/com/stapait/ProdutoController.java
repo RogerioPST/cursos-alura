@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 
 public class ProdutoController {
 	
-	private ProdutoDaoMock produtoDao;
+	private ProdutoDao produtoDao;
 
-	public ProdutoController() {
-		produtoDao = new ProdutoDaoMock();
+	public ProdutoController(ProdutoDao produtoDao)  {
+		this.produtoDao = produtoDao;		
 	}
 	
 	public List<Produto> lista() {
