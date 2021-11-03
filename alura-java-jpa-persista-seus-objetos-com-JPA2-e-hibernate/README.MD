@@ -1,0 +1,1 @@
+![ciclo vida jpa 1](ciclo_vida_jpa.png "ciclo vida jpa 2")
